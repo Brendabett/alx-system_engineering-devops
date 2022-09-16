@@ -1,6 +1,5 @@
-# Installs flask, version 2.1.0
-
+# installing a package using puppet
 package { 'flask':
   ensure   => '2.1.0',
-  provider => 'pip3',
+  provider => 'pip3'
 }
