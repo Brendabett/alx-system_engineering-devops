@@ -1,8 +1,22 @@
 #!/usr/bin/env bash
-# Script that configures HAproxy in a load balancer 
-apt-get -y install software-properties-common
-add-apt-repository -y ppa:vbernat/haproxy-2.0
-apt-get -y update
-apt-get -y install haproxy=2.0.\*
-echo -e "\nfrontend http\n\tbind *:80\n\tmode http\n\tdefault_backend web-backend\n\nbackend web-backend\n\tbalance roundrobin\n\tserver 13381-web-01 34.204.167.223:80 check\n\tserver 13381-web-02 3.234.242.109:80 check" >> /etc/haproxy/haproxy.cfg
-service haproxy restart
+# Script that configures a load balancer for Ubuntu 20.04
+
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y install haproxy
+
+sudo chown -R ubuntu /etc/haproxy
+
+configuration="\
+frontend http
+bind *:80
+mode http
+default_backend web-server
+backend web-server
+balance roundrobin
+server 3014-web-01 34.74.53.248:80 check
+server 3014-web-02 3.84.98.183:80 check
+"
+
+sudo echo "$configuration" >> /etc/haproxy/haproxy.cfg
+sudo service haproxy restart
