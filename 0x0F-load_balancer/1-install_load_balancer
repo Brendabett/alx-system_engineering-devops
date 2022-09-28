@@ -14,8 +14,8 @@ mode http
 default_backend web-server
 backend web-server
 balance roundrobin
-server 3014-web-01 34.74.53.248:80 check
-server 3014-web-02 3.84.98.183:80 check
+server 13381-web-01 	34.204.167.223:80 check
+server 13381-web-02 3.234.242.109:80 check
 "
 
 sudo echo "$configuration" >> /etc/haproxy/haproxy.cfg
