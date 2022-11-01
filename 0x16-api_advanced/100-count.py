@@ -13,7 +13,7 @@ def add_title(dictionary, hot_posts):
     if len(hot_posts) == 0:
         return
 
-    title = hot_posts[0][data][title].split()
+    title = hot_posts[0]['data']['title'].split()
     for word in title:
         for key in dictionary.keys():
             c = re.compile("^{}$".format(key), re.I)
@@ -25,13 +25,13 @@ def add_title(dictionary, hot_posts):
 
 def recurse(subreddit, dictionary, after=None):
     """ Queries to Reddit API """
-    u_agent = Mozilla/5.0
+    u_agent = 'Mozilla/5.0'
     headers = {
-        User-Agent: u_agent
+        'User-Agent': u_agent
     }
 
     params = {
-        after: after
+        'after': after
     }
 
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
@@ -44,9 +44,9 @@ def recurse(subreddit, dictionary, after=None):
         return None
 
     dic = res.json()
-    hot_posts = dic[data][children]
+    hot_posts = dic['data']['children']
     add_title(dictionary, hot_posts)
-    after = dic[data][after]
+    after = dic['data']['after']
     if not after:
         return
     recurse(subreddit, dictionary, after=after)
